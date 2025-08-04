@@ -12,7 +12,7 @@ export default function Home() {
       <div className="space-y-6">
         <Input label={"Username"} />
         <Input type="password" label={"Password"} />
-        <Button>Sign in</Button>
+        <Button loading>Sign in</Button>
       </div>
     </div>
   );

@@ -33,7 +33,9 @@ export function PhotoInfo({
         <div>
           <Link
             href={link}
+            prefetch
             className="text-primary flex items-center text-xs space-x-1"
+            target="_blank"
           >
             <div className="h-3 w-3">
               <LinkIcon />
