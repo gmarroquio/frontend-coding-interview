@@ -47,6 +47,37 @@ export function PhotoInfo({
   );
 }
 
+export function PhotoInfoLoading() {
+  return (
+    <div className="flex space-x-3">
+      <Star />
+      <div className="min-w-[75px] w-[75px] h-[75px] rounded-lg bg-gray-400 animate-pulse" />
+      <div className="flex w-full justify-between">
+        <div className="text-sm leading-none space-y-1.5">
+          <p className="font-bold bg-gray-400 text-gray-400 animate-pulse rounded-lg">
+            name
+          </p>
+          <p className="bg-gray-400 text-gray-400 animate-pulse rounded-lg">
+            alt
+          </p>
+          <div className="flex items-center space-x-2">
+            <span className="bg-gray-400 text-gray-400 animate-pulse rounded-lg">
+              #000000
+            </span>
+            <div className="h-3 w-3 bg-gray-400 animate-pulse" />
+          </div>
+        </div>
+        <div className="text-primary flex  items-start text-xs space-x-1">
+          <div className="h-3 w-3">
+            <LinkIcon />
+          </div>
+          <span>Portifolio</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Photos() {
   return (
     <div className="max-w-xs md:max-w-125 md:py-6 md:h-screen md:mx-auto">
@@ -64,13 +95,17 @@ export default function Photos() {
           selected
         />
         <PhotoInfo
-          name={"Jane Doe"}
-          alt={"Gold Hour Raindrops"}
+          name={"photo.photographer"}
+          alt={"photo.alt"}
           link={"#"}
           color={"#374824"}
           img="/image.png"
           selected
         />
+        <PhotoInfoLoading />
+        <PhotoInfoLoading />
+        <PhotoInfoLoading />
+        <PhotoInfoLoading />
       </div>
     </div>
   );
