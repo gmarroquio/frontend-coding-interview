@@ -1,8 +1,11 @@
+"use client";
 import { Link as LinkIcon } from "@/components/svg/link";
 import { Star } from "@/components/svg/star";
+import { useUser } from "@/lib/auth";
 import Link from "next/link";
 
 export function PhotoInfo({
+  id,
   name,
   selected,
   img,
@@ -10,6 +13,7 @@ export function PhotoInfo({
   color,
   link,
 }: {
+  id: number;
   name: string;
   selected?: boolean;
   img: string;
@@ -17,9 +21,16 @@ export function PhotoInfo({
   color: string;
   link: string;
 }) {
+  const { toggleLike } = useUser();
+
   return (
     <div className="flex space-x-3 max-w-xs md:max-w-[500px]">
-      <Star selected={selected} />
+      <button
+        onClick={() => toggleLike(id)}
+        className="cursor-pointer flex h-fit"
+      >
+        <Star selected={selected} />
+      </button>
       <img
         src={img}
         alt={alt}

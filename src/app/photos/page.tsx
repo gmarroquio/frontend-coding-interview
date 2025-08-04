@@ -2,9 +2,11 @@
 import { Logo } from "@/components/svg/logo";
 import { PhotoInfo, PhotoInfoLoading } from "@/components/photo-info";
 import { useGetPhotos } from "@/lib/photos";
+import { useUser } from "@/lib/auth";
 
 export default function Photos() {
   const { data, isLoading } = useGetPhotos();
+  const { user } = useUser();
 
   return (
     <div className="max-w-xs md:max-w-125 md:py-6 md:h-screen md:mx-auto">
@@ -24,12 +26,13 @@ export default function Photos() {
           data?.photos.map((photo) => (
             <PhotoInfo
               key={photo.id}
+              id={photo.id}
               name={photo.photographer}
               alt={photo.alt}
               link={photo.photographer_url}
               color={photo.avg_color}
               img={photo.src.medium}
-              selected
+              selected={user?.liked[photo.id]}
             />
           ))
         )}
