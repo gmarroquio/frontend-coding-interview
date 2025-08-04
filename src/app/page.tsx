@@ -12,8 +12,12 @@ type Inputs = {
 };
 
 export default function Home() {
-  const { user, signIn, pending } = useUser();
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { user, signIn, pending, error } = useUser();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
 
   if (user) redirect("/photos");
 
@@ -28,11 +32,17 @@ export default function Home() {
         <h1 className="font-bold text-xl">Sign in to your account</h1>
       </div>
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-        <Input label="Username" {...register("email", { required: true })} />
+        <Input
+          label="Username"
+          type="email"
+          {...register("email", { required: true })}
+          error={errors.email}
+        />
         <Input
           type="password"
           label="Password"
           {...register("password", { required: true })}
+          error={error ?? errors.password}
         />
         <Button type="submit" loading={pending}>
           Sign in

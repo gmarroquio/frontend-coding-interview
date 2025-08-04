@@ -12,9 +12,9 @@ type User = {
 
 interface AuthContextType {
   user: User | null;
-  error: string | null;
+  error: string | undefined;
   setUser: (user: User | null) => void;
-  setError: (error: string | null) => void;
+  setError: (error: string | undefined) => void;
   toggleLike: (id: number) => void;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -44,7 +44,7 @@ const saveUserInDb = (user: User) => {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [pending, setPending] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const initialUser = getUser();
@@ -65,10 +65,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     setPending(true);
+    setError(undefined);
     await new Promise((res) => setTimeout(res, 500));
     const user = getUserFromDb(email);
-    if (password === "123") {
+    if (password === "12345678") {
       setUser(user);
+    } else {
+      setError("Wrong password");
     }
     setPending(false);
   };

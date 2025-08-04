@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { InputHTMLAttributes } from "react";
+import { FieldError } from "react-hook-form";
 
 export function Input({
   label,
@@ -7,7 +8,7 @@ export function Input({
   ...rest
 }: InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  error?: string;
+  error?: FieldError | string;
 }) {
   return (
     <div className="flex flex-col space-y-2.5">
@@ -21,12 +22,23 @@ export function Input({
           </Link>
         )}
       </div>
-      <input
-        id={rest.name}
-        type={rest.type}
-        {...rest}
-        className="border border-border border-inset rounded-lg px-2.5 py-3"
-      />
+      <div>
+        <input
+          id={rest.name}
+          type={rest.type}
+          {...rest}
+          className="border w-full border-border border-inset rounded-lg px-2.5 py-3"
+        />
+        {error && (
+          <p className="text-sm leading-none mt-2 text-red-500 capitalize">
+            {typeof error === "string"
+              ? error
+              : error.type === "required"
+              ? `${rest.name} is required`
+              : "Error"}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
