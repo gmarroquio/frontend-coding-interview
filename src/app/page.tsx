@@ -35,12 +35,14 @@ export default function Home() {
         <Input
           label="Username"
           type="email"
+          placeholder="Email"
           {...register("email", { required: true })}
           error={errors.email}
         />
         <Input
           type="password"
           label="Password"
+          placeholder="Password"
           {...register("password", { required: true })}
           error={error ?? errors.password}
         />

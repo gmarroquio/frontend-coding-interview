@@ -82,6 +82,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+**Note:** For login, you can use any email address with the password `12345678`.
+
 ### Should be improved
 
 - Pagination/infinite scroll
