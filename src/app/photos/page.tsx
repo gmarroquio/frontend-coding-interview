@@ -1,6 +1,6 @@
 import { Logo } from "@/components/svg/logo";
 import { Link as LinkIcon } from "@/components/svg/link";
-import { Star } from "@/components/star";
+import { Star } from "@/components/svg/star";
 import Link from "next/link";
 
 export function PhotoInfo({
