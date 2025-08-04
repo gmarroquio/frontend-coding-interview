@@ -18,13 +18,17 @@ export function PhotoInfo({
   link: string;
 }) {
   return (
-    <div className="flex space-x-3">
+    <div className="flex space-x-3 max-w-xs md:max-w-[500px]">
       <Star selected={selected} />
-      <img src={img} className="w-[75px] h-[75px] rounded-lg" />
-      <div className="flex w-full justify-between">
-        <div className="text-sm leading-none space-y-1.5">
+      <img
+        src={img}
+        alt={alt}
+        className="w-[75px] h-[75px] min-w-[75px] rounded-lg object-cover"
+      />
+      <div className="flex justify-between">
+        <div className="text-sm w-full leading-none space-y-1.5">
           <p className="font-bold">{name}</p>
-          <p>{alt}</p>
+          <p className="text-ellipsis line-clamp-1">{alt}</p>
           <div className="flex items-center space-x-2">
             <span style={{ color }}>{color}</span>
             <div className={"h-3 w-3"} style={{ backgroundColor: color }} />
@@ -50,7 +54,7 @@ export function PhotoInfo({
 
 export function PhotoInfoLoading() {
   return (
-    <div className="flex space-x-3">
+    <div className="flex space-x-3 max-w-xs md:max-w-[500px]">
       <Star />
       <div className="min-w-[75px] w-[75px] h-[75px] rounded-lg bg-gray-400 animate-pulse" />
       <div className="flex w-full justify-between">
@@ -68,11 +72,13 @@ export function PhotoInfoLoading() {
             <div className="h-3 w-3 bg-gray-400 animate-pulse" />
           </div>
         </div>
-        <div className="text-primary flex  items-start text-xs space-x-1">
-          <div className="h-3 w-3">
-            <LinkIcon />
+        <div className="flex items-start">
+          <div className="text-primary flex items-center text-xs space-x-1">
+            <div className="h-3 w-3">
+              <LinkIcon />
+            </div>
+            <span>Portifolio</span>
           </div>
-          <span>Portifolio</span>
         </div>
       </div>
     </div>

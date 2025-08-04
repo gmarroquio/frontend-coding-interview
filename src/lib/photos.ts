@@ -1,7 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 
+type PhotoResponse = {
+  photos: {
+    id: number;
+    photographer: string;
+    alt: string;
+    photographer_url: string;
+    avg_color: string;
+    src: { medium: string };
+  }[];
+};
+
 export const useGetPhotos = (page = 1) =>
-  useQuery({
+  useQuery<PhotoResponse>({
     queryKey: ["all", page],
     queryFn: async () => {
       const response = await fetch(
