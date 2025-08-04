@@ -1,9 +1,10 @@
+import { ButtonHTMLAttributes } from "react";
+
 export function Button({
   children,
   loading,
-}: {
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
-  children: React.ReactNode;
 }) {
   return (
     <button

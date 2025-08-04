@@ -1,11 +1,10 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type User = {
   name: string;
   email: string;
-  password: string;
   liked: {
     [key: number]: boolean;
   };
@@ -17,24 +16,44 @@ interface AuthContextType {
   setUser: (user: User | null) => void;
   setError: (error: string | null) => void;
   toggleLike: (id: number) => void;
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  pending: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const getUser = () => {
+  const user = JSON.parse(localStorage?.getItem("user") ?? "null");
+  return user;
+};
+
+const saveUser = (user: User | null) => {
+  localStorage.setItem("user", JSON.stringify(user));
+};
+
+const getUserFromDb = (email: string) => {
+  const user = JSON.parse(localStorage?.getItem(email) ?? "null");
+  return user ?? { email, name: "John Doe", liked: {} };
+};
+
+const saveUserInDb = (user: User) => {
+  localStorage.setItem(user.email, JSON.stringify(user));
+};
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>({
-    email: "test@test.com",
-    password: "123",
-    name: "test",
-    liked: {},
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   const initialUser = getUser();
+  useEffect(() => {
+    const initialUser = getUser();
+    if (initialUser) setUser(initialUser);
+  }, []);
 
-  //   if (initialUser) setUser(initialUser);
-  // }, []);
+  useEffect(() => {
+    saveUser(user);
+  }, [user]);
 
   const toggleLike = (id: number) => {
     if (user) {
@@ -44,9 +63,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const signIn = async (email: string, password: string) => {
+    setPending(true);
+    await new Promise((res) => setTimeout(res, 500));
+    const user = getUserFromDb(email);
+    if (password === "123") {
+      setUser(user);
+    }
+    setPending(false);
+  };
+
+  const signOut = async () => {
+    setPending(true);
+    await new Promise((res) => setTimeout(res, 500));
+    if (user) {
+      saveUserInDb(user);
+      setUser(null);
+    }
+    setPending(false);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ error, user, setError, setUser, toggleLike }}
+      value={{
+        error,
+        user,
+        setError,
+        setUser,
+        toggleLike,
+        signIn,
+        pending,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
