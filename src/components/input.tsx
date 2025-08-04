@@ -11,7 +11,7 @@ export function Input({
   error?: FieldError | string;
 }) {
   return (
-    <div className="flex flex-col space-y-2.5">
+    <div className="flex flex-col space-y-2.5" data-testid="input">
       <div className="flex justify-between items-center">
         <label htmlFor={rest.name} className="font-bold text-sm">
           {label}
@@ -24,6 +24,7 @@ export function Input({
       </div>
       <div>
         <input
+          data-testid={`input-${rest.name}`}
           id={rest.name}
           type={rest.type}
           {...rest}

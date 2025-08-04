@@ -24,7 +24,10 @@ export function PhotoInfo({
   const { toggleLike } = useUser();
 
   return (
-    <div className="flex space-x-3 max-w-xs md:max-w-[500px]">
+    <div
+      className="flex space-x-3 max-w-xs md:max-w-[500px]"
+      data-testid="photo-info"
+    >
       <button
         onClick={() => toggleLike(id)}
         className="cursor-pointer flex h-fit"
@@ -65,7 +68,10 @@ export function PhotoInfo({
 
 export function PhotoInfoLoading() {
   return (
-    <div className="flex space-x-3 max-w-xs md:max-w-[500px]">
+    <div
+      className="flex space-x-3 max-w-xs md:max-w-[500px]"
+      data-testid="loading-info"
+    >
       <Star />
       <div className="min-w-[75px] w-[75px] h-[75px] rounded-lg bg-gray-400 animate-pulse" />
       <div className="flex w-full justify-between">

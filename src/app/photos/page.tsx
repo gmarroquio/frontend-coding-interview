@@ -18,7 +18,9 @@ export default function Photos() {
       </div>
       <div className="mb-10 flex justify-between">
         <h1 className="font-bold text-xl ">All photos</h1>
-        <button onClick={signOut}>Sign Out</button>
+        <button className="cursor-pointer" onClick={signOut}>
+          Sign Out
+        </button>
       </div>
       <div className="space-y-3 max-h-[calc(100vh-40px-28px-75px-24px-24px-48px)] overflow-y-auto">
         {isLoading ? (
